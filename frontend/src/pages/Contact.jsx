@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 const Contact = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
