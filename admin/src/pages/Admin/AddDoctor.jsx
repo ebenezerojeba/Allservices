@@ -12,7 +12,7 @@ const AddDoctor = () => {
   const [password, setPassword] = useState("");
   const [experience, setExperience] = useState("1 year");
   const [fee, setFee] = useState("");
-  const [speciality, setSpeciality] = useState("General physician");
+  const [speciality, setSpeciality] = useState("Barbering");
   const [degree, setDegree] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
@@ -63,24 +63,25 @@ const AddDoctor = () => {
         setLoading(false)
         setDocImg(false);
         setName("");
-        setAbout("");
-        setAddress1("");
-        setAddress2("");
-        setFee("");
-        setPassword("");
-        setEmail("");
+        // setAbout("");
+        // setAddress1("");
+        // setAddress2("");
+        // setFee("");
+        // setPassword("");
+        // setEmail("");
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       toast.error(error.message);
+      setLoading(false)
       console.log(error);
     }
   };
 
   return (
     <form onSubmit={onSubmitHandler} className="m-5 w-full">
-      <p className="mb-3 text-lg font-medium"> Add Doctor</p>
+      <p className="mb-3 text-lg font-medium"> Add Artisan</p>
       <div className="bg-white px-8 py-8 border rounded w-full max-w-4xl max-h-[80vh] overflow-y-scroll">
         <div className="flex items-center gap-4 mb-8 text-gray-500">
           <label htmlFor="doc-img">
@@ -98,14 +99,14 @@ const AddDoctor = () => {
             hidden
           />
           <p>
-            Upload doctor <br /> picture
+            Upload Aritisan <br /> picture
           </p>
         </div>
 
         <div className="flex flex-col lg:flex-row items-start gap-10 text-gray-600">
           <div className="w-full lg:flex-1 flex flex-col gap-4">
             <div className="flex-1 flex flex-col gap-1">
-              <p>Doctor name</p>
+              <p>Artisan name</p>
               <input
                 onChange={(e) => setName(e.target.value)}
                 value={name}
@@ -117,7 +118,7 @@ const AddDoctor = () => {
             </div>
 
             <div className="flex-1 flex flex-col gap-1">
-              <p>Doctor Email</p>
+              <p>Artisan Email</p>
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
@@ -129,7 +130,7 @@ const AddDoctor = () => {
             </div>
 
             <div className="flex-1 flex flex-col gap-1">
-              <p>Dcotor Password</p>
+              <p>Artisan Password</p>
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
@@ -150,16 +151,16 @@ const AddDoctor = () => {
                 name=""
                 id=""
               >
-                <option value="1 year">1 years</option>
-                <option value="2 year">2 years</option>
-                <option value="3 year">3 years</option>
-                <option value="4 year">4 years</option>
-                <option value="5 year">5 years</option>
-                <option value="6 year">6 years</option>
-                <option value="7 year">7 years</option>
-                <option value="8 year">8 years</option>
-                <option value="9 year">9 years</option>
-                <option value="10 year">10 years</option>
+                <option value="1 year">1 year</option>
+                <option value="2 years">2 years</option>
+                <option value="3 years">3 years</option>
+                <option value="4 years">4 years</option>
+                <option value="5 years">5 years</option>
+                <option value="6 years">6 years</option>
+                <option value="7 years">7 years</option>
+                <option value="8 years">8 years</option>
+                <option value="9 years">9 years</option>
+                <option value="10 years">10 years</option>
               </select>
             </div>
 
@@ -185,12 +186,12 @@ const AddDoctor = () => {
                 name=""
                 id=""
               >
-                <option value="General physician">General physician</option>
-                <option value="Gynecologist">Gynecologist</option>
-                <option value="Dermatologist">Dermatologist</option>
-                <option value="Neurologist">Neurologist</option>
-                <option value="Pediatricians">Pediatricians</option>
-                <option value="Gastroenterologist">Gastroenterologist</option>
+                <option value="Barbering">Barbering</option>
+                <option value="Makeup">Makeup</option>
+                <option value="Nails & Lashes">Nails & Lashes</option>
+                <option value="Tatoo Art">Tatoo Art</option>
+                <option value="Massage">Massage</option>
+                <option value="Skincare">Skincare</option>
               </select>
             </div>
             <div className="flex-1 flex flex-col gap-1">
@@ -227,12 +228,12 @@ const AddDoctor = () => {
         </div>
 
         <div className="mt-4 mb-2">
-          <p>About Dcotor</p>
+          <p>About Art</p>
           <textarea
             onChange={(e) => setAbout(e.target.value)}
             value={about}
             className="w-full px-4 pt-2 border rounded"
-            placeholder="Write about doctor"
+            placeholder="Write about Artisan"
             rows={5}
             required
           />
@@ -243,7 +244,7 @@ const AddDoctor = () => {
           disabled={loading}
           className="bg-primary hover:bg-primary-dark transition-all duration-300 px-10 py-3 mt-4 text-white rounded-full flex items-center gap-2"
         >
-          {loading ? <ClipLoader color="#ffffff" size={20} /> : "Add Doctor"}
+          {loading ? <ClipLoader color="#ffffff" size={20} /> : "Add Artisan"}
         </button>
       </div>
     </form>

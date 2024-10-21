@@ -41,13 +41,13 @@ const Sidebar = () => {
                         <img src={assets.appointment_icon} alt="" />
                         <p className='hidden md:block'>Appointment</p>
                     </NavLink>
-                    <NavLink to={'/add-doctor'} className={({isActive}) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3F2] border-r-4 border-primary':''}`}  >
+                    <NavLink to={'/add-artisan'} className={({isActive}) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3F2] border-r-4 border-primary':''}`}  >
                         <img src={assets.add_icon} alt="" />
-                        <p className='hidden md:block'>Add Doctor</p>
+                        <p className='hidden md:block'>Add Artisan</p>
                     </NavLink>
-                    <NavLink to={'/doctor-list'} className={({isActive}) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3F2] border-r-4 border-primary':''}`} >
+                    <NavLink to={'/artisan-list'} className={({isActive}) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3F2] border-r-4 border-primary':''}`} >
                         <img src={assets.people_icon} alt="" />
-                        <p className='hidden md:block'>Doctors List</p>
+                        <p className='hidden md:block'>Artisan List</p>
                     </NavLink>
                 </ul>
 

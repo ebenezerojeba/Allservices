@@ -20,10 +20,10 @@ const App = ({token}) => {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='/doctors' element={<Doctors />}/>
+        <Route path='/artisans' element={<Doctors />}/>
         <Route path='/about' element={<About />}/>
         <Route path='/contact' element={<Contact />}/>
-        <Route path='/doctors/:speciality' element={<Doctors />}/>
+        <Route path='/artisans/:speciality' element={<Doctors />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/my-appointments' element={<MyAppointments />}/>
         <Route path='/appointment/:docId' element={<Appointment />}/>

@@ -136,10 +136,10 @@ const addDoctor = async (req, res) => {
     // === 10. Send Success Response ===
     return res.status(201).json({
       success: true,
-      message: "Doctor added successfully",
+      message: "Artisan added successfully",
     });
   } catch (error) {
-    console.error("Error adding doctor:", error);
+    console.error("Error adding Artisan:", error);
 
     // === 11. Handle Cloudinary Errors Specifically ===
     if (error.name === "CloudinaryError") {

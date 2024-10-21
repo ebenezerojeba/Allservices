@@ -41,7 +41,7 @@ const DoctorDashboard = () => {
               <p className="text-xl font-semibold text-gray-600">
                 {dashedData.patients}
               </p>
-              <p className="text-gray-400">Patients</p>
+              <p className="text-gray-400">Clients</p>
             </div>
           </div>
 

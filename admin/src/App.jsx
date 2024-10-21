@@ -10,16 +10,13 @@ import AddDoctor from "./pages/Admin/AddDoctor";
 import DoctosList from "./pages/Admin/DoctosList";
 import AllApointments from "./pages/Admin/AllApointments";
 import Dashboard from "./pages/Admin/Dashboard";
-import { DoctorContext } from "./context/DoctorContext";
-import DoctorDashboard from "./pages/Doctors/DoctorDashboard";
-import DoctorAppointment from "./pages/Doctors/DoctorAppointment";
-import DoctorProfile from "./pages/Doctors/DoctorProfile";
+
 
 const App = () => {
   const { aToken } = useContext(AdminContext);
-  const {dToken } = useContext(DoctorContext);
+ 
 
-  return aToken || dToken ? (
+  return aToken ?  (
     <div className="bg-[#F8F9FD]">
       <ToastContainer />
       <Navbar />
@@ -30,14 +27,11 @@ const App = () => {
           <Route path="/" element ={<></>} />
           <Route path="/admin-dashboard" element ={<Dashboard/>} />
           <Route path="/all-appointments" element ={<AllApointments/>} />
-          <Route path="/add-doctor" element ={<AddDoctor/>} />
-          <Route path="/doctor-list" element ={<DoctosList/>} />
+          <Route path="/add-artisan" element ={<AddDoctor/>} />
+          <Route path="/artisan-list" element ={<DoctosList/>} />
 
 
-          {/* Doctors Route */}
-          <Route path="/doctor-dashboard" element ={<DoctorDashboard/>} />
-          <Route path="/doctor-appointment" element ={<DoctorAppointment/>} />
-          <Route path="/doctor-profile" element ={<DoctorProfile/>} />
+      
          
         </Routes>
       </div>

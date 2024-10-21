@@ -25,7 +25,7 @@ const Dashboard = () => {
                 {" "}
                 {dashData.doctors}
               </p>
-              <p className="text-gray-400">Doctors</p>
+              <p className="text-gray-400">Artisans</p>
             </div>
           </div>
 
@@ -45,7 +45,7 @@ const Dashboard = () => {
               <p className="text-xl font-semibold text-gray-600">
                 {dashData.patients}
               </p>
-              <p className="text-gray-400">Patient</p>
+              <p className="text-gray-400">Clients</p>
             </div>
           </div>
 

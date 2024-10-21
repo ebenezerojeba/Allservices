@@ -156,7 +156,7 @@ const DoctorProfile = () => {
           >
             {profileData.about}
           </p>
-          {profileData.about.length > 150 && (
+          {profileData?.about?.length > 150 && (
             <button
               className="mt-3 text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-200"
               onClick={() => setShowFullAbout(!showFullAbout)}

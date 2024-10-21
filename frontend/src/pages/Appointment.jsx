@@ -180,10 +180,10 @@ const Appointment = () => {
             </p>
             <div className="flex items-center gap-2 text-sm mt-1 text-gray-600">
               <p>
-                {docInfo.degree} - {docInfo.speciality}
+                Category: {docInfo.speciality}
               </p>
               <button className="py-0.5 px-2 border text-xs rounded-full">
-                {docInfo.experience} yrs
+                {/* {docInfo.experience} of experience */}
               </button>
             </div>
 
@@ -200,7 +200,7 @@ const Appointment = () => {
               Appointment fee:{" "}
               <span className="text-gray-600">
                 {currencySymbol}
-                {docInfo.fee}
+                {docInfo.fee.toLocaleString()}
               </span>
             </p>
           </div>
