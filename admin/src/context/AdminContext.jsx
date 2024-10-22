@@ -12,7 +12,7 @@ const AdminContextProvider = (props) => {
   const [doctors, setDoctors] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [dashData, setDashData] = useState(false);
-  const backendUrl = "http://localhost:4000";
+  const backendUrl = "https://skilllink.vercel.app";
 
   const getAllDoctors = async () => {
     try {

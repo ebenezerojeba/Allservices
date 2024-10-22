@@ -8,7 +8,7 @@ export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
   const currencySymbol = "₦"; 
-    const backendUrl = "http://localhost:4000"
+    const backendUrl = "https://skilllink.vercel.app"
     const [doctors, setDoctors] = useState([]);
     const [userData, setUserData] = useState(false)
     const [token, setToken] = useState(localStorage.getItem('token')? localStorage.getItem('token'): "")
