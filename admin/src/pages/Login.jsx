@@ -1,15 +1,16 @@
 import React, { useContext, useState } from "react";
-import { assets } from "../assets/assets.js";
 import axios from "axios";
 import { AdminContext } from "../context/AdminContext.jsx";
 import { toast } from "react-toastify";
-import { DoctorContext } from "../context/DoctorContext.jsx";
+import Spinner from "react-spinner";
+import { ClipLoader } from "react-spinners";
 
 const Login = () => {
   const [state, setState] = useState("Admin");
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [password, setPassword] = useState("");
-  const { setDToken, dToken } = useContext(DoctorContext);
+
   const { setAToken, backendUrl } = useContext(AdminContext);
 
   const onSubmitHandler = async (event) => {
@@ -22,18 +23,11 @@ const Login = () => {
         });
         if (data.success) {
           localStorage.setItem("aToken", data.token);
+          setIsLoading(false)
           setAToken(data.token);
         } else {
           toast.error(data.message);
-        }
-      } else {
-        const { data } = await axios.post(backendUrl + "/api/doctor/login", {
-          email,
-          password,
-        });
-        if (data.success) {
-          localStorage.setItem("dToken", data.token);
-          setDToken(data.token);
+          setIsLoading(false)
         }
       }
     } catch (error) {}
@@ -43,7 +37,9 @@ const Login = () => {
     <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center">
       <div className=" flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-[#5E5E5E] text-sm shadow-lg">
         <p className="text-2xl font-semibold m-auto">
-          <span className="text-primary">{state}</span>
+          <span className="text-primary">
+            Admin {""}
+          </span>
           Login
         </p>
         <div className="w-full">
@@ -69,31 +65,12 @@ const Login = () => {
 
         <button
           type="submit"
+          onClick={()=>setIsLoading(true)}
+          
           className="bg-primary text-white w-full py-2 rounded-md text-base"
         >
-          Login
+          {isLoading ? <ClipLoader color="#ffffff" size={20} /> : "Login"}
         </button>
-        {state === "Admin" ? (
-          <p>
-            Doctor Login ?{" "}
-            <span
-              className="text-primary underline cursor-pointer"
-              onClick={() => setState("Doctor")}
-            >
-              Click Here
-            </span>{" "}
-          </p>
-        ) : (
-          <p>
-            Admin Login ?{" "}
-            <span
-              className="text-primary underline cursor-pointer"
-              onClick={() => setState("Admin")}
-            >
-              Click Here
-            </span>{" "}
-          </p>
-        )}
       </div>
     </form>
   );
