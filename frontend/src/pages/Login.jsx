@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { useSpring, animated, config } from "react-spring";
 import { Mail, Lock, User, EyeOff, Eye } from "lucide-react";
+import { assets } from "../assets/assets";
 
 const InputField = ({
   icon: Icon,
@@ -111,15 +112,31 @@ const Login = () => {
   }, [token]);
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center bg-gray-00">
+    <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
+      {/* Background Image Container */}
+      <div className="absolute inset-0">
+        <img
+          src={assets.bg3}
+          className="w-full h-full object-cover"
+          alt="background"
+          style={{
+            objectPosition: "center",
+            filter: "brightness(0.9)", // Optional: slightly dim the background
+          }}
+        />
+        {/* Optional overlay for better contrast */}
+        <div className="absolute inset-0 bg-black opacity-40"></div>
+      </div>
+
+      {/* Content Container */}
       <animated.div
         style={formAnimation}
-        className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md"
+        className="bg-black/5 backdrop-blur-sm p-4 sm:p-8 rounded-xl shadow-2xl w-[95%] max-w-md relative z-10 mx-4"
       >
-        <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-6 text-gray-300">
           {state === "Sign Up" ? "Create Account" : "Welcome Back"}
         </h2>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-center text-gray-400 mb-6 sm:mb-8">
           {state === "Sign Up"
             ? "Join us to book your appointments easily"
             : "Login to access your account"}
@@ -157,7 +174,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-primary text-white py-2 rounded-lg text-lg font-semibold transition-all duration-300 hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+            className="w-full bg-primary text-white py-2.5 rounded-lg text-lg font-semibold transition-all duration-300 hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
           >
             {state === "Sign Up" ? "Create Account" : "Login"}
           </button>
