@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useSpring, animated, config } from "react-spring";
-import { Mail, Lock, User, EyeOff, Eye } from "lucide-react";
+import { Mail, Lock, User, EyeOff, Eye, Loader2 } from "lucide-react";
 import { assets } from "../assets/assets";
 
 const InputField = ({
@@ -49,6 +49,12 @@ const InputField = ({
   );
 };
 
+const LoadingSpinner = () => (
+  <Loader2 className="animate-spin items-center" size={20} />
+);
+
+
+
 const Login = () => {
   const { backendUrl, token, setToken } = useContext(AppContext);
   const navigate = useNavigate();
@@ -57,6 +63,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const formAnimation = useSpring({
     opacity: 1,
@@ -70,8 +77,10 @@ const Login = () => {
     config: config.wobbly,
   });
 
-  const onSubmitHandler = async (event) => {
+
+    const onSubmitHandler = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
 
     try {
       if (state === "Sign Up") {
@@ -83,9 +92,11 @@ const Login = () => {
         if (data.success) {
           localStorage.setItem("token", data.token);
           setToken(data.token);
+          
           toast.success("Account Created Successfully!");
         } else {
           toast.error(data.message);
+          setIsLoading(false);
         }
       } else {
         const { data } = await axios.post(backendUrl + "/api/user/login", {
@@ -174,9 +185,18 @@ const Login = () => {
 
           <button
             type="submit"
+            disabled={isLoading}
             className="w-full bg-primary text-white py-2.5 rounded-lg text-lg font-semibold transition-all duration-300 hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
           >
-            {state === "Sign Up" ? "Create Account" : "Login"}
+            {isLoading ? (
+              <>
+                <LoadingSpinner />
+              </>
+            ) : state === "Sign Up" ? (
+              "Create Account"
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
 
@@ -193,8 +213,9 @@ const Login = () => {
 
         <div className="mt-6 text-center">
           <button
+            disabled={isLoading}
             onClick={() => setState(state === "Sign Up" ? "Login" : "Sign Up")}
-            className="text-primary hover:text-primary-dark transition-colors duration-300"
+            className="disabled:text-gray-400 disabled:cursor-not-allowed text-primary hover:text-primary-dark transition-colors duration-300"
           >
             {state === "Sign Up" ? "Login" : "Create an account"}
           </button>
