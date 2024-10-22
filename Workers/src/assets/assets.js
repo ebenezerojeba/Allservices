@@ -17,6 +17,7 @@ import bg3 from "./bg3.jpeg";
 import bg4 from "./bg4.jpeg";
 import bg5 from "./bg5.jpeg";
 import bg6 from "./bg6.jpeg";
+import logo from './SkillLink6.png'
 
 
 export const assets = {
@@ -26,6 +27,7 @@ export const assets = {
   bg4,
   bg5,
   bg6,
+  logo,
   add_icon,
   admin_logo,
   appointment_icon,
