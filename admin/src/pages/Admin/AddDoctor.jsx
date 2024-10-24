@@ -63,12 +63,12 @@ const AddDoctor = () => {
         setLoading(false);
         setDocImg(false);
         setName("");
-        // setAbout("");
-        // setAddress1("");
-        // setAddress2("");
-        // setFee("");
-        // setPassword("");
-        // setEmail("");
+        setAbout("");
+        setAddress1("");
+        setAddress2("");
+        setFee("");
+        setPassword("");
+        setEmail("");
       } else {
         toast.error(data.message);
       }

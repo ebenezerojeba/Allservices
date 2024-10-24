@@ -55,9 +55,9 @@ const AllApointments = () => {
               />{" "}
               <p>{item.docData.name}</p>
             </div>
-            <p>
+            <p className="text-xs">
               {currency}
-              {item.amount}
+              {item.amount.toLocaleString()}
             </p>
             {item.cancelled ? (
               <p className="text-red-400 text-xs font-medium"> Cancelled</p>

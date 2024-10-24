@@ -115,6 +115,7 @@ const AdminContextProvider = (props) => {
     cancelAppointment,
     dashData,
     getDashData,
+    
   };
   return (
     <AdminContext.Provider value={value}>
