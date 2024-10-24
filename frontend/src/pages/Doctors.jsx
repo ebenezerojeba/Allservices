@@ -85,9 +85,7 @@ const Doctors = () => {
                 : navigate("/artisans/Barbering")
             }
             className={`w-[94vw] sm:w-auto p1-3 py-1.5 pr-16 border-gray-300 rounded transition-all cursor-pointer ${
-              speciality === "Barbering"
-                ? "bg-indigo-100 text-black"
-                : ""
+              speciality === "Barbering" ? "bg-indigo-100 text-black" : ""
             }`}
           >
             Barbering
@@ -126,7 +124,7 @@ const Doctors = () => {
               speciality === "Tatoo Art" ? "bg-indigo-100 text-black" : ""
             } `}
           >
-            Tatoo Art
+            Tattoo Art
           </p>
           <p
             onClick={() =>
@@ -147,13 +145,96 @@ const Doctors = () => {
                 : navigate("/artisans/Skincare")
             }
             className={`w-[94vw] sm:w-auto p1-3 py-1.5 pr-16 border-gray-300 rounded transition-all cursor-pointer ${
-              speciality === "Skincare"
-                ? "bg-indigo-100 text-black"
-                : ""
+              speciality === "Skincare" ? "bg-indigo-100 text-black" : ""
             } `}
           >
             Skincare
           </p>
+          <p
+            onClick={() =>
+              speciality === "Fashion"
+                ? navigate("/artisans")
+                : navigate("/artisans/Fashion")
+            }
+            className={`w-[94vw] sm:w-auto p1-3 py-1.5 pr-16 border-gray-300 rounded transition-all cursor-pointer ${
+              speciality === "Fashion" ? "bg-indigo-100 text-black" : ""
+            } `}
+          >
+            Fashion
+          </p>
+          <p
+            onClick={() =>
+              speciality === "Photography"
+                ? navigate("/artisans")
+                : navigate("/artisans/Photography")
+            }
+            className={`w-[94vw] sm:w-auto p1-3 py-1.5 pr-16 border-gray-300 rounded transition-all cursor-pointer ${
+              speciality === "Photography" ? "bg-indigo-100 text-black" : ""
+            } `}
+          >
+            Photography
+          </p>
+          <p
+            onClick={() =>
+              speciality === "Carpentry"
+                ? navigate("/artisans")
+                : navigate("/artisans/Carpentry")
+            }
+            className={`w-[94vw] sm:w-auto p1-3 py-1.5 pr-16 border-gray-300 rounded transition-all cursor-pointer ${
+              speciality === "Carpentry" ? "bg-indigo-100 text-black" : ""
+            } `}
+          >
+            Carpentry
+          </p>
+          <p
+            onClick={() =>
+              speciality === "Art & Design"
+                ? navigate("/artisans")
+                : navigate("/artisans/Art & Design")
+            }
+            className={`w-[94vw] sm:w-auto p1-3 py-1.5 pr-16 border-gray-300 rounded transition-all cursor-pointer ${
+              speciality === "Art & Design" ? "bg-indigo-100 text-black" : ""
+            } `}
+          >
+            Art & Design
+          </p>
+          <p
+            onClick={() =>
+              speciality === "Optometry"
+                ? navigate("/artisans")
+                : navigate("/artisans/Optometry")
+            }
+            className={`w-[94vw] sm:w-auto p1-3 py-1.5 pr-16 border-gray-300 rounded transition-all cursor-pointer ${
+              speciality === "Optometry" ? "bg-indigo-100 text-black" : ""
+            } `}
+          >
+            Optometry
+          </p>
+          <p
+            onClick={() =>
+              speciality === "Culinary"
+                ? navigate("/artisans")
+                : navigate("/artisans/Culinary")
+            }
+            className={`w-[94vw] sm:w-auto p1-3 py-1.5 pr-16 border-gray-300 rounded transition-all cursor-pointer ${
+              speciality === "Culinary" ? "bg-indigo-100 text-black" : ""
+            } `}
+          >
+            Culinary
+          </p>
+          <p
+            onClick={() =>
+              speciality === "Florist"
+                ? navigate("/artisans")
+                : navigate("/artisans/Florist")
+            }
+            className={`w-[94vw] sm:w-auto p1-3 py-1.5 pr-16 border-gray-300 rounded transition-all cursor-pointer ${
+              speciality === "Florist" ? "bg-indigo-100 text-black" : ""
+            } `}
+          >
+            Florist
+          </p>
+
           {/* Add other specialities in the same manner */}
         </div>
         <div className="w-full grid grid-cols-auto gap-4 gap-y-6">

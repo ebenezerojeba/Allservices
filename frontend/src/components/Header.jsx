@@ -2,15 +2,48 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Shield, Clock, PenTool } from "lucide-react";
+import {
+  Scissors,
+  Brush,
+  Sparkles,
+  Feather,
+  Waves,
+  Smile,
+  Shirt,
+  Camera,
+  Hammer,
+  Palette,
+  Glasses,
+  Utensils,
+  Flower2,
+ 
+} from "lucide-react";
+import SearchBar from "./SearchBar";
 
 const services = [
-  { name: "Barbering", icon: PenTool },
-  { name: "Makeup", icon: PenTool },
-  { name: "Nails & Lashes", icon: PenTool },
-  { name: "Tattoo Art", icon: PenTool },
-  { name: "Massage", icon: PenTool },
-  { name: "Skincare", icon: PenTool },
+  { name: "Barbering", icon: Scissors, description: "Hair styling & grooming" },
+  { name: "Makeup", icon: Brush, description: "Professional makeup services" },
+  {
+    name: "Nails & Lashes",
+    icon: Sparkles,
+    description: "Beauty enhancements",
+  },
+  { name: "Tattoo Art", icon: Feather, description: "Custom tattoo designs" },
+  { name: "Massage", icon: Waves, description: "Therapeutic treatments" },
+  { name: "Skincare", icon: Smile, description: "Facial treatments" },
+  {
+    name: "Fashion",
+    icon: Shirt,
+    description: "Custom clothing & alterations",
+  },
+  { name: "Photography", icon: Camera, description: "Professional shoots" },
+  { name: "Carpentry", icon: Hammer, description: "Custom woodwork" },
+  { name: "Art & Design", icon: Palette, description: "Custom artwork" },
+  { name: "Optometry", icon: Glasses, description: "Eyewear specialist" },
+  { name: "Culinary", icon: Utensils, description: "Personal chef services" },
+  { name: "Florist", icon: Flower2, description: "Floral arrangements" },
 ];
+
 
 const Header = () => {
   const [currentService, setCurrentService] = useState(0);
@@ -67,28 +100,8 @@ const Header = () => {
             </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg shadow-xl overflow-hidden max-w-3xl w-full mx-auto"
-          >
-            <div className="p-6 sm:p-8 flex flex-col sm:flex-row gap-4">
-              <div className="flex-grow flex items-center border-b border-white border-opacity-30 pb-2">
-                <PenTool className="h-5 w-5 text-white" />
-                <p className="ml-2 flex-grow bg-transparent outline-none text-white placeholder-white placeholder-opacity-70 text-lg">
-                  Explore our services
-                </p>
-              </div>
-              <div className="flex-shrink-0">
-                 <button className="w-full sm:w-auto bg-white text-blue-400 font-bold py-3 px-6 rounded-lg hover:bg-opacity-90 transition duration-300 flex items-center justify-center text-lg">
-                  <a href="#services">Find Artisans</a>
-                </button> 
-             
 
-              </div>
-            </div>
-          </motion.div>
+          <SearchBar />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
