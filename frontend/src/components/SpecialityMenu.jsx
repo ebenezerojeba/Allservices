@@ -1,19 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
-  Scissors, Brush, Sparkles, Feather, Waves, Smile, 
-  Shirt, Camera, Hammer, Palette, Glasses, Utensils, 
-  Flower2, ChevronDown, ChevronUp
+  Scissors,
+  Brush,
+  Sparkles,
+  Feather,
+  Waves,
+  Smile,
+  Shirt,
+  Camera,
+  Hammer,
+  Palette,
+  Glasses,
+  Utensils,
+  Flower2,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 const services = [
   { name: "Barbering", icon: Scissors, description: "Hair styling & grooming" },
   { name: "Makeup", icon: Brush, description: "Professional makeup services" },
-  { name: "Nails & Lashes", icon: Sparkles, description: "Beauty enhancements" },
-  { name: "Tattoo Art", icon: Feather, description: "Custom tattoo designs" },
+  {
+    name: "Nails & Lashes",
+    icon: Sparkles,
+    description: "Beauty enhancements",
+  },
+  { name: "Tatoo Art", icon: Feather, description: "Custom tattoo designs" },
   { name: "Massage", icon: Waves, description: "Therapeutic treatments" },
   { name: "Skincare", icon: Smile, description: "Facial treatments" },
-  { name: "Fashion", icon: Shirt, description: "Custom clothing & alterations" },
+  {
+    name: "Fashion",
+    icon: Shirt,
+    description: "Custom clothing & alterations",
+  },
   { name: "Photography", icon: Camera, description: "Professional shoots" },
   { name: "Carpentry", icon: Hammer, description: "Custom woodwork" },
   { name: "Art & Design", icon: Palette, description: "Custom artwork" },
@@ -23,7 +43,8 @@ const services = [
 ];
 
 const ServiceItem = ({ name, icon: Icon, description }) => {
-  const motion = typeof window !== 'undefined' ? ('framer-motion').motion : undefined;
+  const motion =
+    typeof window !== "undefined" ? "framer-motion".motion : undefined;
 
   if (!motion) {
     return (
@@ -63,8 +84,8 @@ const ServiceItem = ({ name, icon: Icon, description }) => {
 const SpecialityMenu = () => {
   const [showAll, setShowAll] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const motion = typeof window !== 'undefined' ? ('framer-motion') : undefined;
-  
+  const motion = typeof window !== "undefined" ? "framer-motion" : undefined;
+
   const Container = motion?.section || "section";
   const Title = motion?.h1 || "h1";
   const Description = motion?.p || "p";
@@ -76,13 +97,14 @@ const SpecialityMenu = () => {
     };
 
     checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
+    window.addEventListener("resize", checkScreenSize);
 
-    return () => window.removeEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   // Show all services on large screens, or if showAll is true on small screens
-  const visibleServices = (!isSmallScreen || showAll) ? services : services.slice(0, 4);
+  const visibleServices =
+    !isSmallScreen || showAll ? services : services.slice(0, 4);
 
   return (
     <Container className="py-16 px-4" id="services">
@@ -105,7 +127,8 @@ const SpecialityMenu = () => {
             transition: { duration: 0.5, delay: 0.2 },
           })}
         >
-          Connect with skilled artisans and experience exceptional craftsmanship.
+          Connect with skilled artisans and experience exceptional
+          craftsmanship.
         </Description>
         <Grid
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"

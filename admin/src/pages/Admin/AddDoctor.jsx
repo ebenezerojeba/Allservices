@@ -189,14 +189,14 @@ const AddDoctor = () => {
                 
                   <option value="Barbering">Barbering</option>
                   <option value="Makeup">Makeup</option>
-                  <option value="Nails & Lashes">Nails & Lashes</option>
+                  <option value="Nails-Lashes">Nails & Lashes</option>
                   <option value="Tatoo Art">Tattoo Art</option>
                   <option value="Massage">Massage</option>
                   <option value="Skincare">Skincare</option>
                   <option value="Fashion">Fashion</option>
                   <option value="Photography">Photography</option>
                   <option value="Carpentry">Carpentry</option>
-                  <option value="Art & Design">Art & Design</option>
+                  <option value="Art-Design">Art & Design</option>
                   <option value="Optometry">Optometry</option>
                   <option value="Culinary">Culinary</option>
                   <option value="Florist">Florist</option>

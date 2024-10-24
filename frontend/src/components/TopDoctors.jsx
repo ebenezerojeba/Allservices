@@ -11,7 +11,7 @@ const TopDoctors = () => {
     <h1 className=' text-2xl text-blue-800 text-center font-bold font-Ysabeau'>Top Skilled-Workers to Book</h1>
     <p className='sm:w-1/3 mb-4 text-center text-sm'>Simply browse through our extended list of trusted skilled-workers</p>
     <div className='w-full grid grid-cols-auto gap-4 pt-5 gap-y- px-3 sm:px-0'>
-   {doctors.slice(3,7).map((item,index)=>(
+   {doctors.slice(18,24).map((item,index)=>(
     <div onClick={()=>{navigate(`/appointment/${item._id}`); scrollTo(0,0)}} className='border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500' key={index}>
         <img className='bg-blue-50' src={item.image} alt="" />
         <div className='p-4'>

@@ -104,12 +104,12 @@ const Doctors = () => {
           </p>
           <p
             onClick={() =>
-              speciality === "Nails & Lashes"
+              speciality === "Nails-Lashes"
                 ? navigate("/artisans")
-                : navigate("/artisans/Nails & Lashes")
+                : navigate("/artisans/Nails-Lashes")
             }
             className={`w-[94vw] sm:w-auto p1-3 py-1.5 pr-16 border-gray-300 rounded transition-all cursor-pointer ${
-              speciality === "Nails & Lashes" ? "bg-indigo-100 text-black" : ""
+              speciality === "Nails-Lashes" ? "bg-indigo-100 text-black" : ""
             } `}
           >
             Nails & Lashes
@@ -188,12 +188,12 @@ const Doctors = () => {
           </p>
           <p
             onClick={() =>
-              speciality === "Art & Design"
+              speciality === "Art-Design"
                 ? navigate("/artisans")
-                : navigate("/artisans/Art & Design")
+                : navigate("/artisans/Art-Design")
             }
             className={`w-[94vw] sm:w-auto p1-3 py-1.5 pr-16 border-gray-300 rounded transition-all cursor-pointer ${
-              speciality === "Art & Design" ? "bg-indigo-100 text-black" : ""
+              speciality === "Art-Design" ? "bg-indigo-100 text-black" : ""
             } `}
           >
             Art & Design
