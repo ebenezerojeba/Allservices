@@ -13,7 +13,6 @@ const addDoctor = async (req, res) => {
       email,
       password,
       speciality,
-      degree,
       experience,
       about,
       fee,
@@ -27,7 +26,6 @@ const addDoctor = async (req, res) => {
       !email ||
       !password ||
       !speciality ||
-      !degree ||
       !experience ||
       !about ||
       !fee ||
@@ -67,7 +65,7 @@ const addDoctor = async (req, res) => {
     //   });
     // }
 
-    if (password.lenght < 8) {
+    if (password.length < 8) {
       return res.json({
         success: false,
         message: "Passowrd must be atleast 8 chararcters",
@@ -121,7 +119,6 @@ const addDoctor = async (req, res) => {
       image: imageUrl,
       password: hashedPassword,
       speciality,
-      degree,
       experience,
       about,
       fee,
