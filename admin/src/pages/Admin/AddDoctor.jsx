@@ -13,7 +13,7 @@ const AddDoctor = () => {
   const [experience, setExperience] = useState("1 year");
   const [fee, setFee] = useState("");
   const [speciality, setSpeciality] = useState("Barbering");
-  const [degree, setDegree] = useState("");
+  // const [degree, setDegree] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [about, setAbout] = useState("");
@@ -37,7 +37,7 @@ const AddDoctor = () => {
       formData.append("experience", experience);
       formData.append("fee", Number(fee));
       formData.append("speciality", speciality);
-      formData.append("degree", degree);
+      // formData.append("degree", degree);
       formData.append("about", about);
 
       formData.append(
@@ -60,21 +60,21 @@ const AddDoctor = () => {
       );
       if (data.success) {
         toast.success(data.message);
-        setLoading(false)
+        setLoading(false);
         setDocImg(false);
         setName("");
-        setAbout("");
-        setAddress1("");
-        setAddress2("");
-        setFee("");
-        setPassword("");
-        setEmail("");
+        // setAbout("");
+        // setAddress1("");
+        // setAddress2("");
+        // setFee("");
+        // setPassword("");
+        // setEmail("");
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       toast.error(error.message);
-      setLoading(false)
+      setLoading(false);
       console.log(error);
     }
   };
@@ -186,25 +186,24 @@ const AddDoctor = () => {
                 name=""
                 id=""
               >
-                <option value="Barbering">Barbering</option>
-                <option value="Makeup">Makeup</option>
-                <option value="Nails & Lashes">Nails & Lashes</option>
-                <option value="Tatoo Art">Tatoo Art</option>
-                <option value="Massage">Massage</option>
-                <option value="Skincare">Skincare</option>
+                
+                  <option value="Barbering">Barbering</option>
+                  <option value="Makeup">Makeup</option>
+                  <option value="Nails & Lashes">Nails & Lashes</option>
+                  <option value="Tatoo Art">Tattoo Art</option>
+                  <option value="Massage">Massage</option>
+                  <option value="Skincare">Skincare</option>
+                  <option value="Fashion">Fashion</option>
+                  <option value="Photography">Photography</option>
+                  <option value="Carpentry">Carpentry</option>
+                  <option value="Art & Design">Art & Design</option>
+                  <option value="Optometry">Optometry</option>
+                  <option value="Culinary">Culinary</option>
+                  <option value="Florist">Florist</option>
+               
               </select>
             </div>
-            <div className="flex-1 flex flex-col gap-1">
-              <p>Education</p>
-              <input
-                onChange={(e) => setDegree(e.target.value)}
-                value={degree}
-                className="border rounded px-3 py-2"
-                type="text"
-                placeholder="education"
-                required
-              />
-            </div>
+            
             <div className="flex-1 flex flex-col gap-1">
               <p>Address</p>
               <input
@@ -228,7 +227,7 @@ const AddDoctor = () => {
         </div>
 
         <div className="mt-4 mb-2">
-          <p>About Art</p>
+          <p>About Artisan</p>
           <textarea
             onChange={(e) => setAbout(e.target.value)}
             value={about}
