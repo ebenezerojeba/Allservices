@@ -8,6 +8,10 @@ export default {
     extend: {
       colors: {
         'primary': "#000080"
+      },
+      fontFamily:{
+        'Ysabeau': ['Ysabeau', 'sans-serif'],
+
       }
     },
   },
