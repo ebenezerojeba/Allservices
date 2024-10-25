@@ -143,7 +143,7 @@ const bookAppointment = async (req, res) => {
     const docData = await doctorModel.findById(docId).select("-password");
 
     if (!docData.available) {
-      return res.json({ success: false, message: "Doctor not available" });
+      return res.json({ success: false, message: "Artisan not available" });
     }
 
     let slots_booked = docData.slots_booked;
