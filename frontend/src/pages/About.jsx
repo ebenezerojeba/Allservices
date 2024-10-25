@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { CheckCircle, Clock, Shield, ArrowRight } from "lucide-react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router-dom";
 
 const About = () => {
   const navigate = useNavigate();
@@ -145,8 +146,9 @@ const About = () => {
         <div className="inline-block">
           <button
             onClick={() => {
+              navigate('/login')
               window.scrollTo(0, 0);
-              navigate("/login");
+              
             }}
             className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-full text-lg font-semibold hover:shadow-lg transition-all duration-300"
           >

@@ -3,12 +3,15 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
+import { PenTool } from "lucide-react";
 import RelatedDoctors from "../components/RelatedDoctors";
 import axios from "axios";
 import { toast } from "react-toastify";
+import ClipLoader from "react-spinners/ClipLoader";
 import "react-toastify/dist/ReactToastify.css";
+import AnimatedText from "../components/AnimatedText";
 
-// Initialize Toastif
+// Initialize Toastify
 
 const Appointment = () => {
   const { docId } = useParams();
@@ -27,6 +30,7 @@ const Appointment = () => {
   const [docSlots, setDocSlots] = useState([]);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const [selectedSlotIndex, setSelectedSlotIndex] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   // Fetch Doctor Information
@@ -98,6 +102,7 @@ const Appointment = () => {
 
   // Book Appointment Function
   const bookAppointment = async () => {
+    setIsLoading(true);
     if (!token) {
       toast.warn("Login to book appointment");
       return navigate("/login");
@@ -158,57 +163,63 @@ const Appointment = () => {
   // Render
   return (
     docInfo && (
-      <div>
-        {/* Doctor Details */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div>
+      <div className="bg-stone-50 min-h-screen p-4">
+        {/* Artisan Details */}
+        <div className="flex flex-col sm:flex-row gap-4 max-w-7xl mx-auto">
+          <div className="sm:w-1/3">
             <img
-              className="bg-primary w-full sm:max-w-72 rounded-lg"
+              className="w-full h-[400px] object-cover rounded-xl shadow-lg"
               src={docInfo.image}
-              alt={`${docInfo.name}`}
+              alt={`${docInfo.name}'s workshop`}
             />
           </div>
-          <div className="flex-1 border border-gray-400 rounded-lg p-8 bg-white mx-2 sm:mx-0 mt-[-80px] sm:mt-0">
-            {/* Doctor Info: Name, Degree, Experience */}
-            <p className="flex items-center gap-2 text-2xl font-medium text-gray-900">
-              {docInfo.name}
-              <img
-                className="w-5"
-                src={assets.verified_icon}
-                alt="verified-icon"
-              />
-            </p>
-            <div className="flex items-center gap-2 text-sm mt-1 text-gray-600">
-              <p>
-                Category: {docInfo.speciality}
-              </p>
-              <button className="py-0.5 px-2 border text-xs rounded-full">
-                {/* {docInfo.experience} of experience */}
-              </button>
+          <div className="flex-1 bg-white rounded-xl p-8 shadow-md border border-stone-200">
+            {/* Artisan Info */}
+            <div className="border-b border-stone-200 pb-6">
+              <div className="flex items-center gap-3">
+                <h1 className="text-3xl font-serif font-light text-stone-800">
+                  {docInfo.name}
+                </h1>
+                <img
+                  className="w-6"
+                  src={assets.verified_icon}
+                  alt="master craftsman"
+                />
+              </div>
+              <div className="flex items-center gap-4 mt-3 text-stone-600">
+                <p className="text-sm">Master of {docInfo.speciality}</p>
+                <div className="h-1 w-1 bg-stone-300 rounded-full"></div>
+                <span className="text-xs italic">Artisan Excellence</span>
+              </div>
             </div>
 
-            {/* Doctor About */}
-            <div>
-              <p className="flex items-center gap-1 text-sm font-medium text-gray-900 mt-3">
-                About <img src={assets.info_icon} alt="info icon" />
-              </p>
-              <p className="text-sm text-gray-500 max-w-[700px] mt-1">
-                {docInfo.about}
+            {/* Artisan About */}
+            <div className="mt-6">
+              <h2 className="text-lg font-Ysabeau font-bold text-stone-800 mb-3  uppercase">
+                Craftsmanship Journey
+              </h2>
+                <AnimatedText text={docInfo.about}  className="text-stone-600 leading-relaxed" />
+            </div>
+
+            <div className="mt-6 p-4 bg-stone-50 rounded-lg">
+              <p className="text-stone-800 font-Ysabeau font-bold">
+                Commission Fee:{" "}
+                <span className="text-stone-900 font-medium">
+                  {currencySymbol}
+                  {docInfo.fee.toLocaleString()}
+                </span>
               </p>
             </div>
-            <p className="text-gray-500 font-medium mt-4">
-              Appointment fee:{" "}
-              <span className="text-gray-600">
-                {currencySymbol}
-                {docInfo.fee.toLocaleString()}
-              </span>
-            </p>
           </div>
         </div>
 
-        {/* Booking Slot */}
-        <div className="sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700">
-          <p>Booking slots</p>
+        {/* Booking Section */}
+        <div className="max-w-7xl mx-auto mt-12">
+          <h2 className="text-2xl font-bold font-Ysabeau">Book Service</h2>
+          <p className="text-gray-600">
+            Select your preferred date and time for the service
+          </p>
+
           <div className="flex gap-3 items-center w-full overflow-x-scroll mt-4">
             {docSlots.length > 0 &&
               docSlots.map((daySlots, dayIndex) => (
@@ -219,7 +230,7 @@ const Appointment = () => {
                   }}
                   className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
                     selectedDayIndex === dayIndex
-                      ? "bg-primary text-white"
+                      ? "bg-blue-800 text-white"
                       : "border border-gray-400"
                   }`}
                   key={dayIndex}
@@ -239,7 +250,7 @@ const Appointment = () => {
                   onClick={() => setSelectedSlotIndex(slotIdx)}
                   className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${
                     selectedSlotIndex === slotIdx
-                      ? "bg-primary text-white"
+                      ? "bg-blue-800 text-white"
                       : "text-gray-400 border border-gray-300"
                   } `}
                   key={slotIdx}
@@ -249,19 +260,26 @@ const Appointment = () => {
               ))}
           </div>
 
-          <button
-            onClick={bookAppointment}
-            className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6"
-          >
-            Book an Appointment
-          </button>
+          <div className="mt-8 flex">
+            {" "}
+            <button
+              onClick={bookAppointment}
+              disabled={isLoading}
+              className="w-full sm:w-auto bg-blue-800 text-white px-6 py-3 rounded-full font- flex items-center justify-center hover:bg-blue-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? (
+                <ClipLoader color="#FFFFFF" size={24} />
+              ) : (
+                <>
+                  <PenTool className="w-4 h-4 mr-2" />
+                  Book an Appointment
+                </>
+              )}
+            </button>
+          </div>
         </div>
-
-        {/* Related Doctors */}
-        <RelatedDoctors docId={docId} speciality={docInfo.speciality} />
       </div>
     )
   );
 };
-
 export default Appointment;
