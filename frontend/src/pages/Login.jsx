@@ -106,12 +106,15 @@ const Login = () => {
         if (data.success) {
           localStorage.setItem("token", data.token);
           setToken(data.token);
-          toast.success("Logged in Successfully!");
+          setIsLoading(false)
+          toast.success("Welcome Back!");
         } else {
           toast.error(data.message);
+          setIsLoading(false)
         }
       }
     } catch (error) {
+      setIsLoading(false)
       toast.error(error.message);
     }
   };

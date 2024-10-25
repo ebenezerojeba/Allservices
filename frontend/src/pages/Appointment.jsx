@@ -271,7 +271,7 @@ const Appointment = () => {
                 <ClipLoader color="#FFFFFF" size={24} />
               ) : (
                 <>
-                  <PenTool className="w-4 h-4 mr-2" />
+                  
                   Book an Appointment
                 </>
               )}
