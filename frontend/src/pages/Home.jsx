@@ -4,6 +4,7 @@ import SpecialityMenu from '../components/SpecialityMenu'
 import TopDoctors from '../components/TopDoctors'
 import Banner from '../components/Banner'
 import ArtisanRecruitment from '../components/ArtisanRecruitment'
+import StatsDashboard from '../components/StatsDashboard'
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
         <TopDoctors  />
         <Banner />
         <ArtisanRecruitment />
+        <StatsDashboard />
     </div>
   )
 }
