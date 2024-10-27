@@ -6,7 +6,8 @@ import { toast } from "react-toastify";
 export const DoctorContext = createContext();
 
 const DoctorContextProvider = (props) => {
-  const backendUrl = "https://skilllink.vercel.app";
+  // const backendUrl = "https://skilllink.vercel.app";
+  const backendUrl = "https://skillinkbackend.onrender.com";
 
   const [dToken, setDToken] = useState(
     localStorage.getItem("dToken") ? localStorage.getItem("dToken") : ""
