@@ -134,12 +134,15 @@ const Appointment = () => {
 
       if (data.success) {
         toast.success(data.message);
+        setIsLoading(false)
         getDoctorsData();
         navigate("/my-appointments");
       } else {
         toast.error(data.message);
+        setIsLoading(false)
       }
     } catch (error) {
+      setIsLoading(false)
       console.error(error);
       toast.error(error.response?.data?.message || error.message);
     }

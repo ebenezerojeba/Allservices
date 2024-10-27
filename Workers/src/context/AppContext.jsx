@@ -17,7 +17,7 @@ const AppContextProvider = (props) => {
 
     }
     
-  const months = ["", "Jan", "Feb", "March", "April", "May", "June", "July", "September", "October", "November", "December"]
+  const months = ["", "Jan", "Feb", "March", "April", "May", "Jun", "Jul", "Sept", "Oct", "Nov", "Dec"]
 
   const slotDateFormat = (slotDate) => {
     const dateArray = slotDate.split('_')

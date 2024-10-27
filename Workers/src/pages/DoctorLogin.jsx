@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { DoctorContext } from "../context/DoctorContext";
 import { Lock, Mail, Loader2 } from "lucide-react";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const DoctorLogin = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +21,7 @@ const DoctorLogin = () => {
       if (data.success) {
         localStorage.setItem("dToken", data.token);
         setDToken(data.token);
-        toast("Welcome Back")
+        toast.success("Welcome Back")
       } else {
         toast.error(data.message);
       }

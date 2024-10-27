@@ -84,13 +84,21 @@ app.get("/", (req, res) => {
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin:
-      "http://localhost:5173" ||
-      "http://localhost:5174" ||
-      "http://localhost:5175" ||
-      "https://skillink.onrender.com" ||
-      "https://skilllinkartisan.vercel.app", // Replace with your frontend URL if different
+    origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+    "https://skillink.onrender.com",
+    "https://skilllinkartisan.vercel.app",
+    "https://skilllink.vercel.app",
+    "https://skillink.onrender.com"
+
+    ],// Replace with your frontend URL if different
     methods: ["GET", "POST"],
+    credentials: true,
+    transports: ['websocket', 'polling'],
+  allowEIO3: true, // Allow Engine.IO version 3
+  path: '/socket.io/' // Explicitly s
   },
 });
 
