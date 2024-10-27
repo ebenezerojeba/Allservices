@@ -35,8 +35,8 @@ const StatCard = ({ title, count, icon: Icon, percentage, index, inView }) => {
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.5,
-        delay: index * 0.2,
+        duration: 5,
+        delay: index * 5,
         ease: "easeOut"
       }
     }
@@ -87,7 +87,7 @@ const StatCard = ({ title, count, icon: Icon, percentage, index, inView }) => {
       />
       
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold text-gray-700">{title}</h3>
+        <h3 className="text-xl font-Ysabeau font-bold text-gray-800">{title}</h3>
         <motion.div
           variants={iconVariants}
           initial="initial"
@@ -97,7 +97,7 @@ const StatCard = ({ title, count, icon: Icon, percentage, index, inView }) => {
         </motion.div>
       </div>
       
-      <div className="text-4xl font-bold text-gray-900 mb-4">
+      <div className="text-4xl font-Ysabeau font-bold text-gray-900 mb-4">
         <AnimatedCounter end={count} inView={inView} />
       </div>
       
@@ -155,7 +155,7 @@ const StatsDashboard = () => {
           initial="hidden"
           animate="visible"
           className="text-3xl font-bold mb-4 font-Ysabeau bg-clip-text text-transparent 
-                     bg-gradient-to-r from-blue-600 to-blue-300 "
+                     bg-gradient-to-r from-purple-700 to-blue-400 "
         >
           Where Skilled Artisans Meet Their Perfect Match
         </motion.h2>
@@ -172,7 +172,7 @@ const StatsDashboard = () => {
       <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <StatCard
           title="Appointments"
-          count={410}
+          count={490}
           icon={Calendar}
           percentage={12.5}
           index={0}
@@ -180,7 +180,7 @@ const StatsDashboard = () => {
         />
         <StatCard
           title="Artisans"
-          count={207}
+          count={332}
           icon={UserCog}
           percentage={8.2}
           index={1}
@@ -188,11 +188,12 @@ const StatsDashboard = () => {
         />
         <StatCard
           title="Users"
-          count={196}
+          count={235}
           icon={Users}
           percentage={15.4}
           index={2}
           inView={inView}
+          
         />
       </div>
     </div>
