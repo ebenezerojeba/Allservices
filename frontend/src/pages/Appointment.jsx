@@ -100,30 +100,32 @@ const Appointment = () => {
     setDocSlots(newDocSlots);
   };
 
-  // Book Appointment Function
+
   const bookAppointment = async () => {
     setIsLoading(true);
     if (!token) {
       toast.warn("Login to book appointment");
+      setIsLoading(false); // Reset loading state
       return navigate("/login");
     }
-
+  
     if (selectedSlotIndex === null) {
       toast.warn("Please select a time slot");
+      setIsLoading(false); // Reset loading state
       return;
     }
-
+  
     try {
       const selectedSlot = docSlots[selectedDayIndex][selectedSlotIndex];
       const selectedDate = selectedSlot.datetime;
-
+  
       const day = selectedDate.getDate();
       const month = selectedDate.getMonth() + 1;
       const year = selectedDate.getFullYear();
-
+  
       const slotDate = `${day}_${month}_${year}`;
       const slotTime = selectedSlot.time;
-
+  
       const { data } = await axios.post(
         `${backendUrl}/api/user/book-appointment`,
         { userData, docId, slotTime, slotDate },
@@ -131,23 +133,23 @@ const Appointment = () => {
           headers: { token },
         }
       );
-
+  
       if (data.success) {
         toast.success(data.message);
-        setIsLoading(false)
+        setIsLoading(false);
         getArtisansData();
         navigate("/my-appointments");
       } else {
         toast.error(data.message);
-        setIsLoading(false)
+        setIsLoading(false);
       }
-      setIsLoading(false)
     } catch (error) {
-      setIsLoading(false)
+      setIsLoading(false);
       console.error(error);
       toast.error(error.response?.data?.message || error.message);
     }
   };
+
 
   // Effect Hooks
   useEffect(() => {
