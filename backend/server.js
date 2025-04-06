@@ -69,7 +69,10 @@ const port = process.env.PORT || 4000;
 connectDB();
 connectCloudinary();
 
-const allowedOrigins = ['http://localhost:5173','http://localhost:5174', 'http://localhost:5175'];
+const allowedOrigins = ['http://localhost:5173','http://localhost:5174', 
+  "https://skillinkadmin.vercel.app",
+ "https://skillink.onrender.com/about",
+  'http://localhost:5175'];
 
 app.use(cors({
   origin: allowedOrigins,
