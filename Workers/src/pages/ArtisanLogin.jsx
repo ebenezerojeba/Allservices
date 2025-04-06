@@ -1,20 +1,20 @@
 import React, { useContext, useState } from "react";
-import { DoctorContext } from "../context/DoctorContext";
+import { ArtisanContext } from "../context/ArtisanContext";
 import { Lock, Mail, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const DoctorLogin = () => {
+const ArtisanLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { setDToken, backendUrl } = useContext(DoctorContext);
+  const { setDToken, backendUrl } = useContext(ArtisanContext);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     try {
-      const { data } = await axios.post(backendUrl + "/api/doctor/login", {
+      const { data } = await axios.post(backendUrl + "/api/artisan/login", {
         email,
         password,
       });
@@ -112,6 +112,6 @@ const DoctorLogin = () => {
   );
 };
 
-export default DoctorLogin;
+export default ArtisanLogin;
 
 

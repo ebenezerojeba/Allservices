@@ -1,13 +1,14 @@
-import doctorModel from "../models/doctorModel.js";
+
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import appointmentModel from "../models/appointmentModel.js";
+import artisanModel from "../models/artisanModel.js";
 
 const changeAvailability = async (req, res) => {
   try {
     const { docId } = req.body;
-    const docData = await doctorModel.findById(docId);
-    await doctorModel.findByIdAndUpdate(docId, {
+    const docData = await artisanModel.findById(docId);
+    await artisanModel.findByIdAndUpdate(docId, {
       available: !docData.available,
     });
     res.json({ success: true, message: "Availability changed" });
@@ -17,17 +18,17 @@ const changeAvailability = async (req, res) => {
   }
 };
 
-const doctorsList = async (req, res) => {
+const artisanList = async (req, res) => {
   try {
-    const doctors = await doctorModel.find({}).select(["-password", "-email"]);
-    res.json({ success: true, doctors });
+    const artisans = await artisanModel.find({}).select(["-password", "-email"]);
+    res.json({ success: true, artisans });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
 }
 
-const registerDoctor = async (req, res) => {
+const registerArtisan = async (req, res) => {
   try {
     const {
       name,
@@ -69,7 +70,7 @@ const registerDoctor = async (req, res) => {
     }
 
     // === 3. Check if Email Already Exists ===
-    const existingDoctor = await doctorModel.findOne({ email });
+    const existingDoctor = await artisanModel.findOne({ email });
     if (existingDoctor) {
       return res.status(409).json({
         success: false,
@@ -136,7 +137,7 @@ const registerDoctor = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // === 8. Prepare Doctor Data ===
-    const doctorData = {
+    const artisanData = {
       name,
       email,
       image: imageUrl,
@@ -151,8 +152,8 @@ const registerDoctor = async (req, res) => {
     };
 
     // === 9. Save to Database ===
-    const newDoctor = new doctorModel(doctorData);
-    await newDoctor.save();
+    const newArtisan = new artisanModel(artisanData);
+    await newArtisan.save();
 
     // === 10. Send Success Response ===
     return res.status(201).json({
@@ -180,20 +181,20 @@ const registerDoctor = async (req, res) => {
 
 
 
-// API for Doctor Login
-const loginDoctor = async (req, res) => {
+// API for Artisan Login
+const loginArtisan = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const doctor = await doctorModel.findOne({ email });
+    const artisan = await artisanModel.findOne({ email });
 
-    if (!doctor) {
-      return res.json({ success: false, message: "Invalid Credentials" });
+    if (!artisan) {
+      return res.json({ success: false, message: "Invalid Credential" });
     }
 
-    const isMatch = await bcrypt.compare(password, doctor.password);
+    const isMatch = await bcrypt.compare(password, artisan.password);
 
     if (isMatch) {
-      const token = jwt.sign({ id: doctor._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ id: artisan._id }, process.env.JWT_SECRET);
 
       res.json({ success: true, token });
     } else {
@@ -205,9 +206,9 @@ const loginDoctor = async (req, res) => {
   }
 };
 
-// API for doctors appointment for doctor panel
+// API for artisan appointment for artisan panel
 
-const appointmentsDoctor = async (req, res) => {
+const appointmentsArtisan = async (req, res) => {
   try {
     const { docId } = req.body;
     const appointments = await appointmentModel.find({ docId });
@@ -219,7 +220,7 @@ const appointmentsDoctor = async (req, res) => {
   }
 };
 
-// API to cancel appointment completed for doctor panel
+// API to cancel appointment completed for artisan panel
 
 const appointmentCancel = async (req, res) => {
   try {
@@ -266,7 +267,7 @@ const appointmentComplete = async (req, res) => {
 
 // API to get dashboard data for doctor panel
 
-const doctorDashboard = async (req, res) => {
+const artisanDashboard = async (req, res) => {
   try {
     const { docId } = req.body;
 
@@ -303,10 +304,10 @@ const doctorDashboard = async (req, res) => {
 
 // API to get doctor profile for Doctor Panel
 
-const doctorProfile = async (req, res) => {
+const artisanProfile = async (req, res) => {
   try {
     const { docId } = req.body;
-    const profileData = await doctorModel.findById(docId).select("-password");
+    const profileData = await artisanModel.findById(docId).select("-password");
 
     res.json({ success: true, profileData });
   } catch (error) {
@@ -320,7 +321,7 @@ const updateProfile = async (req, res) => {
   try {
     const { docId, fee, address, available } = req.body;
 
-    await doctorModel.findByIdAndUpdate(docId, { fee, address, available });
+    await artisanModel.findByIdAndUpdate(docId, { fee, address, available });
 
     res.json({ success: true, message: "Profile Updated" });
   } catch (error) {
@@ -331,13 +332,13 @@ const updateProfile = async (req, res) => {
 
 export {
   changeAvailability,
-  registerDoctor,
+  registerArtisan,
   updateProfile,
-  doctorProfile,
-  doctorsList,
-  loginDoctor,
-  appointmentsDoctor,
+  artisanProfile,
+  artisanList,
+  loginArtisan,
+  appointmentsArtisan,
   appointmentCancel,
   appointmentComplete,
-  doctorDashboard,
+  artisanDashboard,
 };

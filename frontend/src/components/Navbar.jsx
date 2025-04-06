@@ -56,7 +56,7 @@ const Navbar = () => {
   });
 
   return (
-    <div className= "z-50 bg-white shadow-sm ">
+    <div className="z-50 bg-white shadow-sm">
       <div className="container mx-auto flex items-center justify-between text-sm py-0 px-1">
         <animated.img
           onClick={() => navigate("/")}
@@ -65,8 +65,8 @@ const Navbar = () => {
           alt="logo"
           style={logoAnimation}
         />
-        
-        <ul className="hidden md:flex items-start gap-5 font-medium">
+
+        <ul className="hidden md:flex items-start gap-5 md:gap-4 font-medium">
           <AnimatedNavLink to="/">HOME</AnimatedNavLink>
           <AnimatedNavLink to="/artisans">ALL ARTISANS</AnimatedNavLink>
           <AnimatedNavLink to="/about">ABOUT</AnimatedNavLink>

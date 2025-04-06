@@ -55,7 +55,7 @@ const AppointmentStatus = ({ status }) => {
 };
 
 const MyAppointments = () => {
-  const { backendUrl, token, getDoctorsData } = useContext(AppContext);
+  const { backendUrl, token, getArtisansData } = useContext(AppContext);
   const [appointments, setAppointments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -96,7 +96,7 @@ const MyAppointments = () => {
       if (data.success) {
         toast.success(data.message);
         await fetchAppointments();
-        await getDoctorsData();
+        await getArtisansData();
       } else {
         toast.error(data.message);
       }

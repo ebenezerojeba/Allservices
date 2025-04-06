@@ -2,20 +2,20 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext"; // assuming AppContext might be needed later
 
-const Doctors = () => {
+const Artisans = () => {
   const [filterDoc, setFilterDoc] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
   const [query, setQuery] = useState("");
   const { speciality } = useParams();
-  const { doctors } = useContext(AppContext);
+  const { artisans } = useContext(AppContext);
 
   const navigate = useNavigate();
 
   const applyFilter = () => {
-    let filtered = doctors;
+    let filtered = artisans;
 
     if (speciality) {
-      filtered = filtered.filter(
+      filtered = filtered?.filter(
         (doc) => doc.speciality.toLowerCase() === speciality.toLowerCase()
       );
     }
@@ -33,7 +33,7 @@ const Doctors = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [doctors, speciality, query]);
+  }, [artisans, speciality, query]);
 
   return (
     <div className="p-4">
@@ -238,7 +238,7 @@ const Doctors = () => {
           {/* Add other specialities in the same manner */}
         </div>
         <div className="w-full grid grid-cols-auto gap-4 gap-y-6">
-          {filterDoc.map((item, index) => (
+          {filterDoc?.map((item, index) => (
             <div
               onClick={() => navigate(`/appointment/${item._id}`)}
               className="border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500"
@@ -269,4 +269,4 @@ const Doctors = () => {
   );
 };
 
-export default Doctors;
+export default Artisans;

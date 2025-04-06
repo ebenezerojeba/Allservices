@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
-// Doctor auhtencitcation middleware
-const authDoctor = async (req,res,next) => {
+// Artisan auhtencitcation middleware
+const authArtisan = async (req,res,next) => {
     try {
         const {dtoken} = req.headers
         if(!dtoken) {
@@ -17,4 +17,4 @@ const authDoctor = async (req,res,next) => {
     }
 }
 
-export default authDoctor
+export default authArtisan

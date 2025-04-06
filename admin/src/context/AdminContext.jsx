@@ -9,21 +9,22 @@ const AdminContextProvider = (props) => {
   const [aToken, setAToken] = useState(
     localStorage.getItem("aToken") ? localStorage.getItem("aToken") : ""
   );
-  const [doctors, setDoctors] = useState([]);
+  const [artisans, setArtisans] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [dashData, setDashData] = useState(false);
   // const backendUrl = "https://skilllink.vercel.app";
-  const backendUrl = "https://skillinkbackend.onrender.com";
+  // const backendUrl = "https://skillinkbackend.onrender.com";
+  const backendUrl = "http://localhost:4000";
 
-  const getAllDoctors = async () => {
+  const getAllArtisans = async () => {
     try {
       const { data } = await axios.post(
-        backendUrl + "/api/admin/all-doctors",
+        backendUrl + "/api/admin/all-artisans",
         {},
         { headers: { aToken } }
       );
       if (data.success) {
-        setDoctors(data.doctors);
+        setArtisans(data.artisans);
         
         
       } else {
@@ -105,10 +106,9 @@ const AdminContextProvider = (props) => {
     aToken,
     setAToken,
     backendUrl,
-    getAllDoctors,
+    getAllArtisans,
     changeAvailabilty,
-    doctors,
-    setDoctors,
+    artisans,
     setAppointments,
     appointments,
     getAllAppointments,

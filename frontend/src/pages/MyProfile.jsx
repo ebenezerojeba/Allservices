@@ -43,6 +43,24 @@ const MyProfile = () => {
     }
   };
 
+  const sendVerificationOtp = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+
+      const {data} = await axios.post(backendUrl + 'api/user/send-verify-otp')
+
+      if (data.success) {
+        navigate('email-verify')
+        toast.success(data.message)
+      }
+      else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
   return (
     userData && (
       <motion.div
@@ -104,7 +122,11 @@ const MyProfile = () => {
           <p className="text-neutral-500 underline">CONTACT INFORMATION</p>
           <div className="grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-neutral-700">
             <p className="font-medium">Email id:</p>
-            <p className="text-blue-500">{userData.email}</p>
+            <p className="text-blue-500">
+              {userData.email} {' '} <br />
+              <span className="text-primary cursor-pointer" onClick={sendVerificationOtp}>Verify email</span>
+
+            </p>
 
             <p className="font-medium">Phone:</p>
             {isEdit ? (

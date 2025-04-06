@@ -6,15 +6,15 @@ import React, {
   useCallback,
 } from "react";
 import { AppContext } from "../context/AppContext";
-import { DoctorContext } from "../context/DoctorContext";
+import { ArtisanContext } from "../context/ArtisanContext";
 import { Send, Loader, WifiOff } from "lucide-react";
 import { io } from "socket.io-client";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const DoctorChat = ({ appointment, isOpen, onClose }) => {
+const ArtisanChat = ({ appointment, isOpen, onClose }) => {
   const { backendUrl } = useContext(AppContext);
-  const { dToken } = useContext(DoctorContext);
+  const { dToken } = useContext(ArtisanContext);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -66,7 +66,7 @@ const DoctorChat = ({ appointment, isOpen, onClose }) => {
         query: {
           token: dToken,
           appointmentId: appointment._id,
-          role: "doctor",
+          role: "artisan",
         },
         headers: { token: dToken },
       });
@@ -98,7 +98,7 @@ const DoctorChat = ({ appointment, isOpen, onClose }) => {
       socketRef.current.on("message", (message) => {
         setMessages((prev) => [...prev, message]);
         scrollToBottom();
-        // Play notification sound for new messages from patient
+        // Play notification sound for new messages from user
         if (message.senderId === appointment.userId) {
           const audio = new Audio("/notification-sound.mp3");
           audio.play().catch((e) => console.log("Audio play failed:", e));
@@ -146,7 +146,7 @@ const DoctorChat = ({ appointment, isOpen, onClose }) => {
         const messageData = {
           appointmentId: appointment._id,
           content: newMessage.trim(),
-          senderId: appointment.doctorId,
+          senderId: appointment.artisanId,
           timestamp: new Date().toISOString(),
         };
 
@@ -211,14 +211,14 @@ const DoctorChat = ({ appointment, isOpen, onClose }) => {
               <div
                 key={`${message.timestamp}-${index}`}
                 className={`flex ${
-                  message.senderId === appointment.doctorId
+                  message.senderId === appointment.artisanId
                     ? "justify-end"
                     : "justify-start"
                 }`}
               >
                 <div
                   className={`max-w-[70%] rounded-lg p-3 ${
-                    message.senderId === appointment.doctorId
+                    message.senderId === appointment.artisanId
                       ? "bg-primary text-white"
                       : "bg-gray-100 text-gray-800"
                   }`}
@@ -260,4 +260,4 @@ const DoctorChat = ({ appointment, isOpen, onClose }) => {
   );
 };
 
-export default DoctorChat;
+export default ArtisanChat;

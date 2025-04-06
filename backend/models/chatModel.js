@@ -9,11 +9,17 @@ const chatMessageSchema = new mongoose.Schema({
   },
   senderId: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
+  },
+  receiverId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true
   },
   senderType: {
     type: String,
-    enum: ['user', 'doctor'],
+    enum: ['user', 'artisan'],
     required: true
   },
   content: {

@@ -30,8 +30,6 @@ const App = () => {
           <Route path="/add-artisan" element ={<AddDoctor/>} />
           <Route path="/artisan-list" element ={<DoctosList/>} />
 
-
-      
          
         </Routes>
       </div>

@@ -9,16 +9,19 @@ export const AppContext = createContext();
 const AppContextProvider = (props) => {
   const currencySymbol = "₦"; 
     // const backendUrl = "https://skilllink.vercel.app"
-    const backendUrl = "https://skillinkbackend.onrender.com"
-    const [doctors, setDoctors] = useState([]);
+    // const backendUrl = "https://skillinkbackend.onrender.com"
+    const backendUrl = "http://localhost:4000";
+    const [artisans, setArtisans] = useState([]);
     const [userData, setUserData] = useState(false)
+    const [isLoggedIn, setIsLoggedin] = useState(false)
     const [token, setToken] = useState(localStorage.getItem('token')? localStorage.getItem('token'): "")
 
-    const getDoctorsData = async () => {
+
+    const getArtisansData = async () => {
       try {
-        const {data} = await axios.get(backendUrl + '/api/doctor/list')
+        const {data} = await axios.get(backendUrl + '/api/artisan/list')
         if (data.success) {
-          setDoctors(data.doctors)
+          setArtisans(data.artisans)
         }
         else{
           toast.error(data.message)
@@ -48,18 +51,20 @@ const AppContextProvider = (props) => {
 
 
   const value = {
-    doctors,
-    setDoctors,
+    artisans,
+    setArtisans,
     currencySymbol,
     backendUrl,
     token,setToken,
     userData,setUserData,
-    getDoctorsData,
-    loadUserProfileData
+    getArtisansData,
+    loadUserProfileData, 
+    isLoggedIn,
+    setIsLoggedin
   };
   
   useEffect(()=>{
-    getDoctorsData()
+    getArtisansData()
   },[])
 
   useEffect(()=>{

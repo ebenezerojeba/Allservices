@@ -146,9 +146,8 @@ const About = () => {
         <div className="inline-block">
           <button
             onClick={() => {
-              navigate('/login')
+              navigate("/login");
               window.scrollTo(0, 0);
-              
             }}
             className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-full text-lg font-semibold hover:shadow-lg transition-all duration-300"
           >

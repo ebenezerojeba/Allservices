@@ -4,20 +4,20 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 
-const RelatedDoctors = ({ speciality, docId }) => {
-  const { doctors } = useContext(AppContext);
+const RelatedArtisans = ({ speciality, docId }) => {
+  const { artisans } = useContext(AppContext);
 
   const [relDoc, setRelDocs] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (doctors.length > 0 && speciality) {
-      const doctorsData = doctors.filter(
+    if (artisans.length > 0 && speciality) {
+      const artisansData = artisans.filter(
         (doc) => doc.speciality === speciality && doc.id !== docId
       );
-      setRelDocs(doctorsData);
+      setRelDocs(artisansData);
     }
-  }, [doctors, speciality, docId]);
+  }, [artisans, speciality, docId]);
 
   return (
     <div>
@@ -70,4 +70,4 @@ const RelatedDoctors = ({ speciality, docId }) => {
   );
 };
 
-export default RelatedDoctors;
+export default RelatedArtisans;

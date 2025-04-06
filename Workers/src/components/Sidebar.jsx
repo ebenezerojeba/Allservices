@@ -54,13 +54,13 @@
 
 
 import React, { useContext, useState } from "react";
-import { DoctorContext } from "../context/DoctorContext";
+import { ArtisanContext } from "../context/ArtisanContext";
 import { NavLink } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { Menu, X } from "lucide-react";
 
 const Sidebar = () => {
-  const { dToken } = useContext(DoctorContext);
+  const { dToken } = useContext(ArtisanContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -69,17 +69,17 @@ const Sidebar = () => {
 
   const navigationItems = [
     {
-      path: "/doctor-dashboard",
+      path: "/dashboard",
       icon: assets.home_icon,
       label: "Dashboard"
     },
     {
-      path: "/doctor-appointment",
+      path: "/appointment",
       icon: assets.appointment_icon,
       label: "Appointment"
     },
     {
-      path: "/doctor-profile",
+      path: "/profile",
       icon: assets.people_icon,
       label: "Profile"
     }

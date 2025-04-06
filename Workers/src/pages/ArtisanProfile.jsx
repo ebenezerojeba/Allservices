@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
-import { DoctorContext } from "../context/DoctorContext";
+
 import {
   Calendar,
   Mail,
@@ -17,10 +17,11 @@ import {
   Save,
   Loader,
 } from "lucide-react";
+import { ArtisanContext } from "../context/ArtisanContext";
 
-const DoctorProfile = () => {
+const ArtisanProfile = () => {
   const { profileData, dToken, setProfileData, getProfileData, backendUrl } =
-    useContext(DoctorContext);
+    useContext(ArtisanContext);
   const { currency } = useContext(AppContext);
 
   const [isEdit, setIsEdit] = useState(false);
@@ -42,7 +43,7 @@ const DoctorProfile = () => {
         available: profileData.available,
       };
       const { data } = await axios.post(
-        backendUrl + "/api/doctor/update-profile",
+        backendUrl + "/api/artisan/update-profile",
         updateData,
         { headers: { dToken } }
       );
@@ -74,16 +75,16 @@ const DoctorProfile = () => {
           <div className="md:flex-shrink-0 relative h-80 md:h-auto md:w-2/5">
             <img
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-              src={profileData.image}
-              alt={profileData.name}
+              src={profileData?.image}
+              alt={profileData?.name}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 right-4">
               <h1 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-                {profileData.name}
+                {profileData?.name}
               </h1>
               <p className="mt-2 text-xl text-indigo-200">
-                {profileData.degree}
+                {profileData?.degree}
               </p>
             </div>
           </div>
@@ -92,21 +93,21 @@ const DoctorProfile = () => {
               <div className="flex items-center">
                 <Award className="h-6 w-6 text-indigo-500 mr-2" />
                 <span className="text-xl font-semibold text-gray-800">
-                  {profileData.speciality}
+                  {profileData?.speciality}
                 </span>
               </div>
               <span className="px-3 py-1 text-sm font-semibold text-indigo-600 bg-indigo-100 rounded-full">
-                {profileData.experience}
+                {profileData?.experience}
               </span>
             </div>
             <div className="space-y-4">
               <div className="flex items-center text-gray-600 hover:text-indigo-500 transition-colors duration-200">
                 <Mail className="h-5 w-5 mr-3" />
-                <span>{profileData.email}</span>
+                <span>{profileData?.email}</span>
               </div>
               <div className="flex items-center text-gray-600 hover:text-indigo-500 transition-colors duration-200">
                 <Phone className="h-5 w-5 mr-3" />
-                <span>{profileData.phone}</span>
+                <span>{profileData?.phone}</span>
               </div>
               <div className="flex items-start text-gray-600 hover:text-indigo-500 transition-colors duration-200">
                 <MapPin className="h-5 w-5 mr-3 mt-1" />
@@ -115,7 +116,7 @@ const DoctorProfile = () => {
                     <input
                       type="text"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-200"
-                      value={profileData.address?.line1 || ""}
+                      value={profileData?.address?.line1 || ""}
                       onChange={(e) =>
                         setProfileData((prev) => ({
                           ...prev,
@@ -127,7 +128,7 @@ const DoctorProfile = () => {
                     <input
                       type="text"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-200"
-                      value={profileData.address?.line2 || ""}
+                      value={profileData?.address?.line2 || ""}
                       onChange={(e) =>
                         setProfileData((prev) => ({
                           ...prev,
@@ -139,7 +140,7 @@ const DoctorProfile = () => {
                   </div>
                 ) : (
                   <span>
-                    {profileData.address?.line1}, {profileData.address?.line2}
+                    {profileData?.address?.line1}, {profileData?.address?.line2}
                   </span>
                 )}
               </div>
@@ -154,7 +155,7 @@ const DoctorProfile = () => {
               showFullAbout ? "" : "line-clamp-3"
             }`}
           >
-            {profileData.about}
+            {profileData?.about}
           </p>
           {profileData?.about?.length > 150 && (
             <button
@@ -187,11 +188,11 @@ const DoctorProfile = () => {
                         fee: e.target.value,
                       }))
                     }
-                    value={profileData.fee}
+                    value={profileDat?.fee}
                   />
                 ) : (
                   <span className="ml-2 text-2xl font-semibold text-gray-900">
-                    {profileData.fee}
+                    {profileData?.fee}
                   </span>
                 )}
               </div>
@@ -208,7 +209,7 @@ const DoctorProfile = () => {
                   id="available"
                   type="checkbox"
                   className="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded-md transition-colors duration-200"
-                  checked={profileData.available}
+                  checked={profileData?.available}
                   onChange={() =>
                     isEdit &&
                     setProfileData((prev) => ({
@@ -263,4 +264,4 @@ const DoctorProfile = () => {
   );
 };
 
-export default DoctorProfile;
+export default ArtisanProfile;

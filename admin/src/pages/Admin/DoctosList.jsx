@@ -2,11 +2,11 @@ import React, { useContext, useEffect } from 'react'
 import { AdminContext } from '../../context/AdminContext'
 
 const DoctosList = () => {
-  const {doctors, aToken, getAllDoctors, changeAvailabilty} = useContext(AdminContext)
+  const {artisans, aToken, getAllArtisans, changeAvailabilty} = useContext(AdminContext)
 
   useEffect(()=>{
     if (aToken) {
-      getAllDoctors()
+      getAllArtisans()
     }
   },[aToken])
   return (
@@ -14,7 +14,7 @@ const DoctosList = () => {
       <h1 className='text-lg font-medium'>All Artisans</h1>
       <div className='w-full flex flex-wrap gap-4 pt-5 gap-y-6'>
         {
-          doctors.map((item,index)=>(
+          artisans.reverse().map((item,index)=>(
             <div className='border border-indigo-100 rounded-xl max-w-56 overflow-hidden cursor-pointer' key={index}>
               <img className='bg-indigo-50 group-hover:bg-primary transition-all duration-500' src={item.image} alt="" />
               <div className='p-4'>

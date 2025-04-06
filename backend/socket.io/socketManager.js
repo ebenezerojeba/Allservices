@@ -1,17 +1,24 @@
 import { Server } from 'socket.io';
-import pkg from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'; // Import jwt directly, not pkg
 import ChatMessage from '../models/chatModel.js';
 import appointmentModel from '../models/appointmentModel.js';
 
-
-
-const {verifyToken} = pkg;
 class SocketManager {
   constructor(server) {
     this.io = new Server(server, {
       cors: {
-        origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-        methods: ['GET', 'POST']
+        origin: [
+          "http://localhost:5173",
+          "http://localhost:5174",
+          "http://localhost:5175",
+          "https://skilllinkartisan.vercel.app",
+          "https://skillink.onrender.com",
+        ],
+        methods: ["GET", "POST"],
+        credentials: true,
+        transports: ['websocket', 'polling'],
+        allowEIO3: true,
+        path: '/socket.io/'
       }
     });
     
@@ -27,11 +34,13 @@ class SocketManager {
         return next(new Error('Authentication error'));
       }
 
-      const decoded = verifyToken(token);
-      socket.userId = decoded.userId;
-      socket.userType = decoded.type;
+      // Use jwt.verify directly with the JWT_SECRET
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      socket.userId = decoded.id; // Match the property name used in your auth middleware
+      socket.userType = decoded.type || 'user';
       next();
     } catch (error) {
+      console.error('Socket auth error:', error);
       next(new Error('Authentication error'));
     }
   }
@@ -44,7 +53,7 @@ class SocketManager {
       if (userType === 'user') {
         return appointment.userId.toString() === userId.toString();
       } else {
-        return appointment.doctorId.toString() === userId.toString();
+        return appointment.artisanId.toString() === userId.toString();
       }
     } catch (error) {
       return false;
@@ -52,7 +61,8 @@ class SocketManager {
   }
 
   setupSocketHandlers() {
-    this.io.use(this.authenticateSocket);
+    // Bind 'this' to authenticateSocket to preserve context
+    this.io.use(this.authenticateSocket.bind(this));
 
     this.io.on('connection', async (socket) => {
       console.log(`Socket connected: ${socket.id}`);
@@ -83,6 +93,7 @@ class SocketManager {
           const message = new ChatMessage({
             appointmentId: data.appointmentId,
             senderId: userId,
+            receiverId: data.receiverId,
             senderType: userType,
             content: data.content
           });
@@ -97,7 +108,7 @@ class SocketManager {
 
           // Send notification if recipient is offline
           const appointment = await appointmentModel.findById(appointmentId);
-          const recipientId = userType === 'user' ? appointment.doctorId : appointment.userId;
+          const recipientId = userType === 'user' ? appointment.artisanId : appointment.userId;
           const recipientSocket = userType === 'user' 
             ? this.doctorSockets.get(recipientId.toString())
             : this.userSockets.get(recipientId.toString());

@@ -89,11 +89,12 @@ const Login = () => {
           password,
           email,
         });
-        if (data.success) {
+        if (data.success && data.token) {
           localStorage.setItem("token", data.token);
           setToken(data.token);
+          console.log(data.token)
+          toast.success(data.message);
           
-          toast.success("Account Created Successfully!");
         } else {
           toast.error(data.message);
           setIsLoading(false);
@@ -107,11 +108,22 @@ const Login = () => {
           localStorage.setItem("token", data.token);
           setToken(data.token);
           setIsLoading(false)
-          toast.success("Welcome Back!");
+          toast.success(data.message);
         } else {
           toast.error(data.message);
           setIsLoading(false)
-        }
+        
+    }
+    const {resetPassword} = await axios.get(backendUrl + 'api/user/reset-password', {
+      email
+    })
+    if (resetPassword.success) {
+      toast.success(resetPassword.message)
+    }
+    else{
+      toast.error()
+    }
+
       }
     } catch (error) {
       setIsLoading(false)
@@ -119,11 +131,37 @@ const Login = () => {
     }
   };
 
+  // / Add this function to your frontend code
+const makeAuthenticatedRequest = async (url, method = 'get', body = null) => {
+  const token = localStorage.getItem('token');
+  
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}` // Send token as Bearer token
+  };
+  
+  try {
+    const response = await axios({
+      url,
+      method,
+      headers,
+      data: body
+    });
+    
+    return response.data;
+  } catch (error) {
+    console.error('API request failed:', error);
+    throw error;
+  }
+};
+
+
+
   useEffect(() => {
     if (token) {
       navigate("/");
     }
-  }, [token]);
+  }, [token,]);
 
   return (
     <div className="min-h-screen relative flex items-center justify-center overflow-hidden">
@@ -186,6 +224,8 @@ const Login = () => {
             required
           />
 
+         <h3 onClick={()=>navigate('/forgot-password')} className="text-right cursor-pointer text-primary"> {state === 'Sign Up' ? "" : 'Forgot Password ?'}</h3>
+
           <button
             type="submit"
             disabled={isLoading}
@@ -221,6 +261,7 @@ const Login = () => {
             className="disabled:text-gray-400 disabled:cursor-not-allowed text-primary hover:text-primary-dark transition-colors duration-300"
           >
             {state === "Sign Up" ? "Login" : "Create an account"}
+            
           </button>
         </div>
 

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
-import { DoctorContext } from "../context/DoctorContext";
+import { ArtisanContext } from "../context/ArtisanContext";
 
 const Navbar = () => {
-  const { dToken, setDToken } = useContext(DoctorContext);
+  const { dToken, setDToken } = useContext(ArtisanContext);
 
   const navigate = useNavigate();
   const logout = () => {

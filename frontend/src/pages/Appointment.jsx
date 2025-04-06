@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import { PenTool } from "lucide-react";
-import RelatedDoctors from "../components/RelatedDoctors";
+// import Relatedartisans from "../components/Relatedartisans";
 import axios from "axios";
 import { toast } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -16,17 +16,17 @@ import AnimatedText from "../components/AnimatedText";
 const Appointment = () => {
   const { docId } = useParams();
   const {
-    doctors,
+    artisans,
     currencySymbol,
     backendUrl,
     token,
     userData,
-    getDoctorsData,
+    getArtisansData,
   } = useContext(AppContext);
   const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
   // State Variables
-  const [docInfo, setDocInfo] = useState(null);
+  const [artisanInfo, setArtisanInfo] = useState(null);
   const [docSlots, setDocSlots] = useState([]);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const [selectedSlotIndex, setSelectedSlotIndex] = useState(null);
@@ -34,9 +34,9 @@ const Appointment = () => {
   const navigate = useNavigate();
 
   // Fetch Doctor Information
-  const fetchDocInfo = () => {
-    const foundDoc = doctors.find((doc) => doc._id === docId);
-    setDocInfo(foundDoc);
+  const fetchArtisanInfo = () => {
+    const findArtisan = artisans.find((doc) => doc._id === docId);
+    setArtisanInfo(findArtisan);
   };
 
   // Generate Available Slots
@@ -79,8 +79,8 @@ const Appointment = () => {
         const slotTime = formattedTime;
 
         const isSlotAvailable =
-          docInfo.slots_booked[slotDate] &&
-          docInfo.slots_booked[slotDate].includes(slotTime)
+          artisanInfo.slots_booked[slotDate] &&
+          artisanInfo.slots_booked[slotDate].includes(slotTime)
             ? false
             : true;
         if (isSlotAvailable) {
@@ -135,12 +135,13 @@ const Appointment = () => {
       if (data.success) {
         toast.success(data.message);
         setIsLoading(false)
-        getDoctorsData();
+        getArtisansData();
         navigate("/my-appointments");
       } else {
         toast.error(data.message);
         setIsLoading(false)
       }
+      setIsLoading(false)
     } catch (error) {
       setIsLoading(false)
       console.error(error);
@@ -150,14 +151,14 @@ const Appointment = () => {
 
   // Effect Hooks
   useEffect(() => {
-    fetchDocInfo();
-  }, [doctors, docId]);
+    fetchArtisanInfo();
+  }, [artisans, docId]);
 
   useEffect(() => {
-    if (docInfo) {
+    if (artisanInfo) {
       getAvailableSlot();
     }
-  }, [docInfo]);
+  }, [artisanInfo]);
 
   useEffect(() => {
     console.log(docSlots);
@@ -165,15 +166,15 @@ const Appointment = () => {
 
   // Render
   return (
-    docInfo && (
+    artisanInfo && (
       <div className="bg-stone-50 min-h-screen p-4">
         {/* Artisan Details */}
         <div className="flex flex-col sm:flex-row gap-4 max-w-7xl mx-auto">
           <div className="sm:w-1/3">
             <img
               className="w-full h-[400px] object-cover rounded-xl shadow-lg"
-              src={docInfo.image}
-              alt={`${docInfo.name}'s workshop`}
+              src={artisanInfo.image}
+              alt={`${artisanInfo.name}'s workshop`}
             />
           </div>
           <div className="flex-1 bg-white rounded-xl p-8 shadow-md border border-stone-200">
@@ -181,7 +182,7 @@ const Appointment = () => {
             <div className="border-b border-stone-200 pb-6">
               <div className="flex items-center gap-3">
                 <h1 className="text-3xl font-serif font-light text-stone-800">
-                  {docInfo.name}
+                  {artisanInfo.name}
                 </h1>
                 <img
                   className="w-6"
@@ -190,7 +191,7 @@ const Appointment = () => {
                 />
               </div>
               <div className="flex items-center gap-4 mt-3 text-stone-600">
-                <p className="text-sm">Master of {docInfo.speciality}</p>
+                <p className="text-sm">Master of {artisanInfo.speciality}</p>
                 <div className="h-1 w-1 bg-stone-300 rounded-full"></div>
                 <span className="text-xs italic">Artisan Excellence</span>
               </div>
@@ -201,7 +202,7 @@ const Appointment = () => {
               <h2 className="text-lg font-Ysabeau font-bold text-stone-800 mb-3  uppercase">
                 Craftsmanship Journey
               </h2>
-                <AnimatedText text={docInfo.about}  className="text-stone-600 leading-relaxed" />
+                <AnimatedText text={artisanInfo.about}  className="text-stone-600 leading-relaxed" />
             </div>
 
             <div className="mt-6 p-4 bg-stone-50 rounded-lg">
@@ -209,7 +210,7 @@ const Appointment = () => {
                 Commission Fee:{" "}
                 <span className="text-stone-900 font-medium">
                   {currencySymbol}
-                  {docInfo.fee.toLocaleString()}
+                  {artisanInfo.fee.toLocaleString()}
                 </span>
               </p>
             </div>

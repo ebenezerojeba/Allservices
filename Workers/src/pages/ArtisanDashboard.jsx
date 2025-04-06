@@ -1,10 +1,10 @@
 import React from "react";
 import { useContext, useEffect } from "react";
-import { DoctorContext } from "../context/DoctorContext";
+import { ArtisanContext } from "../context/ArtisanContext";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 
-const DoctorDashboard = () => {
+const AritsanDashboard = () => {
   const {
     getDashedData,
     dToken,
@@ -12,7 +12,7 @@ const DoctorDashboard = () => {
     dashedData,
     completeAppointment,
     cancelAppointment,
-  } = useContext(DoctorContext);
+  } = useContext(ArtisanContext);
 
   const { currency, slotDateFormat } = useContext(AppContext);
 
@@ -112,4 +112,4 @@ const DoctorDashboard = () => {
   );
 };
 
-export default DoctorDashboard;
+export default AritsanDashboard;

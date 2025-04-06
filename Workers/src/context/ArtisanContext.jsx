@@ -3,36 +3,24 @@ import { createContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const DoctorContext = createContext();
+export const ArtisanContext = createContext();
 
-const DoctorContextProvider = (props) => {
+const ArtisanContextProvider = (props) => {
   // const backendUrl = "https://skilllink.vercel.app";
-  const backendUrl = "https://skillinkbackend.onrender.com";
+  // const backendUrl = "https://skillinkbackend.onrender.com";
+  const backendUrl = "http://localhost:4000";
 
   const [dToken, setDToken] = useState(
     localStorage.getItem("dToken") ? localStorage.getItem("dToken") : ""
   );
 
   const [appointments, setAppointments] = useState([]);
-  const [profileData, setProfileData] = useState( false
-    // name: "",
-    // speciality: "",
-    // degree: "",
-    // experience: "",
-    // about: "",
-    // fee: 0,
-    // address: {
-    //   line1: "",
-    //   line2: "",
-    // },
-    // available: false,
-    // image: "",
-  );
+  const [profileData, setProfileData] = useState( false);
   const [dashedData, setDashedData] = useState(false);
   const getAppointments = async () => {
     try {
       const { data } = await axios.get(
-        backendUrl + "/api/doctor/appointments",
+        backendUrl + "/api/artisan/appointments",
         { headers: { dToken } }
       );
 
@@ -45,12 +33,12 @@ const DoctorContextProvider = (props) => {
       console.log(error);
       toast.error(error.message);
     }
-  };
+  }
 
   const completeAppointment = async (appointmentId) => {
     try {
       const { data } = await axios.post(
-        backendUrl + "/api/doctor/complete-appointment",
+        backendUrl + "/api/artisan/complete-appointment",
         { appointmentId },
         { headers: { dToken } }
       );
@@ -68,7 +56,7 @@ const DoctorContextProvider = (props) => {
   const cancelAppointment = async (appointmentId) => {
     try {
       const { data } = await axios.post(
-        backendUrl + "/api/doctor/cancel-appointment",
+        backendUrl + "/api/artisan/cancel-appointment",
         { appointmentId },
         { headers: { dToken } }
       );
@@ -86,7 +74,7 @@ const DoctorContextProvider = (props) => {
 
   const getDashedData = async (params) => {
     try {
-      const { data } = await axios.get(backendUrl + "/api/doctor/dashboard", {
+      const { data } = await axios.get(backendUrl + "/api/artisan/dashboard", {
         headers: { dToken },
       });
 
@@ -103,7 +91,7 @@ const DoctorContextProvider = (props) => {
 
   const getProfileData = async (params) => {
     try {
-      const { data } = await axios.get(backendUrl + "/api/doctor/profile",{headers:{dToken}});
+      const { data } = await axios.get(backendUrl + "/api/artisan/profile",{headers:{dToken}});
 
       if (data.success) {
         setProfileData(data.profileData);
@@ -133,10 +121,10 @@ const DoctorContextProvider = (props) => {
     getProfileData,
   };
   return (
-    <DoctorContext.Provider value={value}>
+    <ArtisanContext.Provider value={value}>
       {props.children}
-    </DoctorContext.Provider>
+    </ArtisanContext.Provider>
   );
 };
 
-export default DoctorContextProvider;
+export default ArtisanContextProvider;
