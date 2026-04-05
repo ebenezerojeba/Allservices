@@ -18,42 +18,57 @@ class SocketManager {
         credentials: true,
         transports: ['websocket', 'polling'],
         allowEIO3: true,
-        path: '/socket.io/'
+        path: '/socket.io'
       }
     });
     
     this.userSockets = new Map();
-    this.doctorSockets = new Map();
+    this.artisanSockets = new Map();
+
+    this.io.use(this.authenticateSocket.bind(this));
+
     this.setupSocketHandlers();
   }
 
   async authenticateSocket(socket, next) {
     try {
       const token = socket.handshake.query.token;
-      if (!token) {
+      const role = socket.handshake.query.role;
+  
+      if (!token || !role) {
         return next(new Error('Authentication error'));
       }
-
-      // Use jwt.verify directly with the JWT_SECRET
+  
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      socket.userId = decoded.id; // Match the property name used in your auth middleware
-      socket.userType = decoded.type || 'user';
+  
+      if (role === 'artisan') {
+        socket.docId = decoded.id;
+        socket.userType = 'artisan';
+      } else {
+        socket.userId = decoded.id;
+        socket.userType = 'user';
+      }
+  
       next();
     } catch (error) {
       console.error('Socket auth error:', error);
       next(new Error('Authentication error'));
     }
   }
+  
 
+  
   async validateAppointment(appointmentId, userId, userType) {
     try {
       const appointment = await appointmentModel.findById(appointmentId);
       if (!appointment) return false;
-
+  
       if (userType === 'user') {
         return appointment.userId.toString() === userId.toString();
       } else {
-        return appointment.artisanId.toString() === userId.toString();
+        // Check both artisanId and docId (if artisanId doesn't exist)
+        const artisanId = appointment.artisanId || appointment.docId;
+        return artisanId.toString() === userId.toString();
       }
     } catch (error) {
       return false;
@@ -62,30 +77,37 @@ class SocketManager {
 
   setupSocketHandlers() {
     // Bind 'this' to authenticateSocket to preserve context
-    this.io.use(this.authenticateSocket.bind(this));
-
     this.io.on('connection', async (socket) => {
       console.log(`Socket connected: ${socket.id}`);
-
-      const { userId, userType } = socket;
+    
+      const userType = socket.userType;
+      const userId = userType === 'artisan' ? socket.docId : socket.userId;
       const appointmentId = socket.handshake.query.appointmentId;
 
-      // Validate appointment access
+          
+    if (!userType || !userId || !appointmentId) {
+      console.log("Missing required socket data", { userType, userId, appointmentId });
+      socket.disconnect();
+      return;
+    }
+    
       const isValid = await this.validateAppointment(appointmentId, userId, userType);
       if (!isValid) {
+        console.log("Invalid appointment access", { appointmentId, userId, userType });
         socket.disconnect();
         return;
       }
-
-      // Store socket connection
+    
       if (userType === 'user') {
         this.userSockets.set(userId, socket);
       } else {
-        this.doctorSockets.set(userId, socket);
+        this.artisanSockets.set(userId, socket); // Consider renaming this
       }
-
-      // Join appointment room
+    
       socket.join(`appointment_${appointmentId}`);
+      
+    
+    
 
       // Handle messages
       socket.on('sendMessage', async (data) => {
@@ -105,12 +127,12 @@ class SocketManager {
             ...message.toObject(),
             sender: userType
           });
-
+          console.log(`Emitted message to room appointment_${appointmentId}`, message.toObject());
           // Send notification if recipient is offline
           const appointment = await appointmentModel.findById(appointmentId);
           const recipientId = userType === 'user' ? appointment.artisanId : appointment.userId;
           const recipientSocket = userType === 'user' 
-            ? this.doctorSockets.get(recipientId.toString())
+            ? this.artisanSockets.get(recipientId.toString())
             : this.userSockets.get(recipientId.toString());
 
           if (!recipientSocket) {
@@ -133,10 +155,10 @@ class SocketManager {
 
       // Typing
       socket.on("typing", (data) => {
-        io.in(data.appointmentId).emit("typing", data.userId);
+        this.io.in(data.appointmentId).emit("typing", data.userId);
       });
       socket.on("stopTyping", (data) => {
-        io.in(data.appointmentId).emit("stopTyping", data.userId);
+      this.io.in(data.appointmentId).emit("stopTyping", data.userId);
       });
       
 
@@ -146,7 +168,8 @@ class SocketManager {
         if (userType === 'user') {
           this.userSockets.delete(userId);
         } else {
-          this.doctorSockets.delete(userId);
+          this.artisanSockets.delete(userId)
+
         }
       });
     });

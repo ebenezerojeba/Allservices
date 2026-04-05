@@ -1,37 +1,5 @@
   import chatModel from "../models/chatModel.js";
 
-// chatController.js
-// const getMessages = async (req, res) => {
-//     try {
-//       const { appointmentId:userToChatId } = req.params;
-
-//       const myId = req.userId_id
-      
-//       // Fetch messages from your database
-//       const messages = await chatModel.find({ 
-//         appointmentId,
-//         $or: [
-//           { senderId:myId, receiverId:userToChatId},
-//           { senderId:userToChatId, receiverId:myId}
-
-//         ]
-//       })
-//         .sort({ timestamp: 1 });
-      
-//       res.json({
-//         success: true,
-//         messages
-//       });
-//     } catch (error) {
-//       console.error('Error fetching messages:', error);
-//       res.status(500).json({
-//         success: false,
-//         message: 'Failed to fetch messages'
-//       });
-//     }
-//   };
-
-
 const getMessages = async (req, res) => {
   try {
     const { appointmentId } = req.params;
