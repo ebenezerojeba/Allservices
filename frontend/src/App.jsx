@@ -17,7 +17,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import Otp from './pages/Otp'
 import EmailVerify from './pages/EmailVerify'
 
-const App = ({token}) => {
+const App = ({}) => {
   return (
     <div className='mx-4 sm:mx-[10%]'>
       <ToastContainer/>

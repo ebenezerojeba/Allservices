@@ -61,7 +61,9 @@ const Chat = ({ appointment, isOpen, onClose }) => {
         reconnection: true,
         reconnectionAttempts: MAX_RETRIES,
         reconnectionDelay: RETRY_DELAY,
-        query: { token, appointmentId: appointment._id },
+        query: { token, appointmentId: appointment._id,
+          role: "user"
+         },
         headers: { token },
       });
 
@@ -97,9 +99,12 @@ const Chat = ({ appointment, isOpen, onClose }) => {
       });
 
       socketRef.current.on("message", (message) => {
+        console.log("Received message:", message);
         setMessages((prev) => [...prev, message]);
         scrollToBottom();
       });
+
+      
     } catch (error) {
       console.error("Socket initialization error:", error);
       toast.error("Chat initialization failed");
@@ -137,6 +142,9 @@ const Chat = ({ appointment, isOpen, onClose }) => {
         !isConnected && toast.error("Chat is not connected. Please try again.");
         return;
       }
+
+      const time = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }).replace(' ', '');
+
   
       try {
         // Add receiverId - this should be the artisan/doctor ID from the appointment
@@ -177,7 +185,7 @@ const Chat = ({ appointment, isOpen, onClose }) => {
         <div className="p-4 border-b flex justify-between items-center">
           <div className="flex items-center gap-2">
             <h3 className="text-lg font-semibold">
-              Chat with Dr. {appointment.docData.name}
+              Chat with {appointment.docData.name}
             </h3>
             {!isConnected && <WifiOff className="w-4 h-4 text-red-500" />}
           </div>
@@ -218,8 +226,13 @@ const Chat = ({ appointment, isOpen, onClose }) => {
                 >
                   <p className="text-sm break-words">{message.content}</p>
                   <span className="text-xs opacity-75 mt-1 block">
-                    {new Date(message.timestamp).toLocaleTimeString()}
-                  </span>
+  {new Date(message.timestamp).toLocaleTimeString([], {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  }).replace(' ', '')}
+</span>
+
                 </div>
               </div>
             ))

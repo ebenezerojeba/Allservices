@@ -8,9 +8,9 @@ export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
   const currencySymbol = "₦"; 
-    // const backendUrl = "https://skilllink.vercel.app"
+    const backendUrl = "https://skilllink.vercel.app"
     // const backendUrl = "https://skillinkbackend.onrender.com"
-    const backendUrl = "http://localhost:4000";
+    // const backendUrl = "http://localhost:4000";
     const [artisans, setArtisans] = useState([]);
     const [userData, setUserData] = useState(false)
     const [isLoggedIn, setIsLoggedin] = useState(false)
@@ -64,7 +64,7 @@ const AppContextProvider = (props) => {
   };
   
   useEffect(()=>{
-    getArtisansData()
+    getArtisansData() 
   },[])
 
   useEffect(()=>{
